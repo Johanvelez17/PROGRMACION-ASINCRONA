@@ -7,7 +7,7 @@ const result = document.querySelector("#result"); // Contenedor del resultado
 searchBtn.addEventListener("click", async () => {
     const pokemonName = pokemonInput.value.trim().toLowerCase(); // Obtener el nombre del Pokémon
     if (pokemonName === "") {
-        result.innerHTML = `<p class="text-danger">Por favor ingresa un nombre de Pokémon.</p>`;
+        result.innerHTML = `<p class="text-primary" style="margin:100px 0 0 420px;">Por favor ingresa un nombre de un Pokémon.</p>`;
         return;
     }
     
@@ -17,15 +17,15 @@ searchBtn.addEventListener("click", async () => {
         
         // Petición a la API
         const response = await fetch(url);
-        if (!response.ok) throw new Error("Pokémon no encontrado.");
+        if (!response.ok) throw new Error("Resultado no encontrado.");
         
         const data = await response.json();
         
         // Desplegar los resultados
         result.innerHTML = `
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: 18rem; background-color:#33AAFFAA; border:1px solid orangered; margin:100px 0 0 440px;box-shadow">
                 <img src="${data.sprites.front_default}" class="card-img-top" alt="${data.name}">
-                <div class="card-body text-center">
+                <div class="card-body text-justify">
                     <h5 class="card-title">${data.name.toUpperCase()}</h5>
                     <p class="card-text"><strong>Habilidades:</strong> ${data.abilities.map(ability => ability.ability.name).join(", ")}</p>
                     <p class="card-text"><strong>Poderes:</strong> ${data.moves.slice(0, 5).map(move => move.move.name).join(", ")}</p>
@@ -34,6 +34,6 @@ searchBtn.addEventListener("click", async () => {
         `;
     } catch (error) {
         console.error("Error al obtener los datos:", error);
-        result.innerHTML = `<p class="text-danger">No se pudo encontrar al Pokémon. Asegúrate de escribir el nombre correctamente.</p>`;
+        result.innerHTML = `<p class="text-white bg-secondary w-25  fw-bold" style="margin:100px 0 0 440px;">¡Error en la búsqueda. Ingresa el nombre correctamente!.</p>`;
     }
 });
